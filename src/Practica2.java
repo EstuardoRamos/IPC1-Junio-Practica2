@@ -103,6 +103,8 @@ public class Practica2 {
                 regresar();
                 break;
             case 8:
+                reportes();
+                regresar();
                 break;
             case 9:
                 System.out.println("Adios");
@@ -124,7 +126,7 @@ public class Practica2 {
         int acept = scanner.nextInt();
         if (acept == 1) {
             if (disponible[nP - 1] == true) {
-                agregarPeliculaAlUsuario(id, (nP - 1));
+                agregarPeliculaAlUsuario(id, (nP - 1),tiempo);
             } else {
                 if (disponible[nP - 1] == false) {
                     System.out.println("\nLo sentimos!. La pelicula esta rentada");
@@ -160,7 +162,7 @@ public class Practica2 {
         celClientes[2] = 32154789;
         celClientes[3] = 47859625;
         celClientes[4] = 54156387;
-        for (int i = 0; i < numClientes + 1; i++) {
+        for (int i = 0; i <= numClientes ; i++) {
             idClientes[i] = (int) (Math.random() * 900 + 100);
             tienePelicula[i] = false;
 
@@ -172,9 +174,11 @@ public class Practica2 {
         System.out.println("");
         System.out.println("PELICULAS");
         System.out.println("Estas son nuestras peliculas diponibles:  \n");
+        System.out.printf("%8s|%12s|%20s|%15s|%n","No.","ID","Pelicula", "Disponible");
+        System.out.println("-----------------------------------------------------------");
         for (int i = 0; i <= numPelis; i++) {
-
-            System.out.println((i + 1) + ". " + idPeliculas[i] + " " + nomPeliculas[i] + "    Disponible: " + disponible[i]);
+            System.out.printf("%8s|%12d|%20s|%15s|%n",(i + 1),idPeliculas[i],nomPeliculas[i],  disponible[i]);
+            //System.out.println((i + 1) + ". " + idPeliculas[i] + " " + nomPeliculas[i] + "    Disponible: " + disponible[i]);
         }
     }
 
@@ -182,18 +186,21 @@ public class Practica2 {
         System.out.println("");
         System.out.println("PELICULAS");
         System.out.println("Informacion de las peliculas\n");
+        System.out.printf("%8s|%12s|%20s|%12s|%18s|%n","No.","ID","Pelicula", "Año","Categoria");
+        System.out.println("------------------------------------------------------------------");
         for (int i = 0; i <= numPelis; i++) {
+            System.out.printf("%8d|%12d|%20s|%12d|%18s|%n",(i + 1),idPeliculas[i],nomPeliculas[i], anioPeliculas[i],categoriaPeliculas[i]);
 
-            System.out.println((i + 1) + ". " + idPeliculas[i] + " " + nomPeliculas[i] + "    Año: " + anioPeliculas[i] + "   Categoria: " + categoriaPeliculas[i]);
+            //System.out.println((i + 1) + ". " + idPeliculas[i] + " " + nomPeliculas[i] + "    Año: " + anioPeliculas[i] + "   Categoria: " + categoriaPeliculas[i]);
         }
     }
 
-    public void agregarPeliculaAlUsuario(int id, int noPelicula) {
+    public void agregarPeliculaAlUsuario(int id, int noPelicula, int dias) {
         int contador = 0;
-        while (contador < numClientes && idClientes[contador] != id) {
+        while (contador <=numClientes && idClientes[contador] != id) {
             contador++;
         }
-        if (contador != numClientes) {
+        if (contador != numClientes+1) {
             System.out.println("Numero encontrado en el espacio numero " + contador);
             if (tienePelicula[contador] == true) {
                 System.out.println("Ya tiene una Pelicula rentada, hasta que se devuelva puede alquilar otra. Lo sentimos...");
@@ -203,7 +210,7 @@ public class Practica2 {
                 int noCliente = contador;
                 tienePelicula[noCliente] = true;
                 disponible[noPelicula] = false;
-                peliculasRentadas(noPelicula, noCliente, id);
+                peliculasRentadas(noPelicula, noCliente, dias);
 
             }
 
@@ -236,12 +243,12 @@ public class Practica2 {
 
     public void definirIdClientes(int i) {
         int numAl = (int) (Math.random() * 900 + 100);
-        for (int j = 0; j < numClientes; j++) {
+        for (int j = 0; j <= numClientes; j++) {
             if (idClientes[j] != numAl) {
                 idClientes[i] = numAl;
                 tienePelicula[i] = false;
             } else {
-                definirIdClientes(i);
+                //definirIdClientes(i);
             }
 
         }
@@ -259,12 +266,32 @@ public class Practica2 {
     public void mostrarPeliculaRentadas() {
         System.out.println("");
         System.out.println("Peliculas rentadas\n");
+        System.out.printf("%8s|%15s|%15s|%15s|%n","No.","Pelicula","Cliente que la tiene", "Dias rentada");
+        System.out.println("----------------------------------------------------------------");
         for (int i = 0; i < noPelisRent; i++) {
-            System.out.println((i + 1) + ". Pelicula: " + nomPeliculas[peliculaRentada[i]] + "  Cliente: " + clientes[noDeClientesConPeli[i]]);
+            System.out.printf("%8d|%15s|%15s|%15d|%n",(i + 1),nomPeliculas[peliculaRentada[i]],clientes[noDeClientesConPeli[i]], diasRentados[i]);
+            //System.out.println((i + 1) + ". Pelicula: " + nomPeliculas[peliculaRentada[i]] + "  Cliente: " + clientes[noDeClientesConPeli[i]]+"  Dias que la rentara: "+diasRentados[i]);
         }
-        System.out.println("\nIngrese El numero de la pelicula que desea devolver: ");
-        int numRentada = scanner.nextInt();
-        quitarPelicula((numRentada - 1));
+        int opc=0;
+        //do{
+        System.out.print("Ingrese 1 si desea devolver una pelicula, o ingrese 2 si desea regresar al Menu: ");
+        opc=scanner.nextInt();
+        //}while(opc!=1 || opc!=2);
+        if (opc == 1) {
+            System.out.print("\nIngrese El numero de la pelicula que desea devolver: ");
+            int numRentada = scanner.nextInt();
+            System.out.print("Ingrese su id: ");
+            int id=scanner.nextInt();
+            quitarPelicula((numRentada - 1));
+
+        } 
+        else{
+            if (opc==2) {
+                Menu();
+                
+            }
+        }
+        
 
     }
 
@@ -283,10 +310,14 @@ public class Practica2 {
         System.out.println("");
         System.out.println("Informacion de los clientes\n");
         System.out.println("Estos son nuestros clientes registrados: \n");
-        for (int i = 0; i < numClientes + 1; i++) {
-            System.out.println((i + 1) + " Id: " + idClientes[i] + ".   Nombre cliente: " + clientes[i] + "         Telefono: " + celClientes[i] + "      Tiene rentada pelicula: " + tienePelicula[i]);
-
+        System.out.println("");
+        System.out.printf("%8s|%12s|%15s|%15s|%15s|%n","No.","ID","Nombre", "Telefono", "Tiene Pelicula");
+        System.out.println("--------------------------------------------------------------------------");
+        for (int i = 0; i <= numClientes ; i++) {
+            System.out.printf("%8d|%12d|%15s|%15s|%15s|%n",(i+1),idClientes[i],clientes[i], celClientes[i],tienePelicula[i]);
+            //System.out.println((i + 1) + " Id: " + idClientes[i] + ".   Nombre cliente: " + clientes[i] + "         Telefono: " + celClientes[i] + "      Tiene rentada pelicula: " + tienePelicula[i]);
         }
+        System.out.println("");
     }
 
     public void crearPelicula() {
@@ -340,6 +371,7 @@ public class Practica2 {
             celClientes[numClientes] = cel;
             definirIdClientes(numClientes);
             System.out.println("Nuevo usuario " + clientes[numClientes] + "id: " + idClientes[numClientes] + ". Se ha agregado a la lista.");
+            System.out.println(numClientes);
         } else {
             if (selec == 2) {
                 Menu();
@@ -352,4 +384,3 @@ public class Practica2 {
     }
 
 }
-
