@@ -25,7 +25,7 @@ public class Practica2 {
     int[] peliculaRentada = new int[30];
     int[] diasRentados = new int[30];
     int noPelisRent = 0;
-    int numPelis = 5;
+    int numPelis = 7;
     int numClientes = 4;
 
     Scanner scanner = new Scanner(System.in);
@@ -45,12 +45,24 @@ public class Practica2 {
         nomPeliculas[3] = "Los vengadores";
         nomPeliculas[4] = "Shrek         ";
         nomPeliculas[5] = "Rambo         ";
+        nomPeliculas[6] = "Chucky    " ;
+        nomPeliculas[7] = "Terminator 2  " ;
         anioPeliculas[0] = 1984;
         anioPeliculas[1] = 1986;
         anioPeliculas[2] = 1999;
         anioPeliculas[3] = 2012;
         anioPeliculas[4] = 2001;
         anioPeliculas[5] = 1982;
+        anioPeliculas[6] = 1988;
+        anioPeliculas[7] = 1991;
+        categoriaPeliculas[0]="Deportes";
+        categoriaPeliculas[1]="Deportes";
+        categoriaPeliculas[2]="Comedia";
+        categoriaPeliculas[3]="Ficcion";
+        categoriaPeliculas[4]="Aventura";
+        categoriaPeliculas[5]="Accion";
+        categoriaPeliculas[6]="Terror";
+        categoriaPeliculas[7]="Accion";
         for (int i = 0; i <= numPelis; i++) {
             idPeliculas[i] = (int) (Math.random() * 9000 + 1000);
             disponible[i] = true;
@@ -71,7 +83,7 @@ public class Practica2 {
             System.out.println("7. Mostrar clientes ");
             System.out.println("8. Reportes.");
             System.out.println("9. Salir.");
-            System.out.print("Ingrese la opcion que desea realizar: ");
+            System.out.print("\nIngrese la opcion que desea realizar: ");
             opc = scanner.nextInt();
         } while (opc < 1 || opc > 9);
 
@@ -104,7 +116,6 @@ public class Practica2 {
                 break;
             case 8:
                 reportes();
-                regresar();
                 break;
             case 9:
                 System.out.println("Adios");
@@ -316,7 +327,7 @@ public class Practica2 {
         System.out.println("Estos son nuestros clientes registrados: \n");
         System.out.println("");
         System.out.printf("%8s|%12s|%15s|%15s|%15s|%n","No.","ID","Nombre", "Telefono", "Tiene Pelicula");
-        System.out.println("--------------------------------------------------------------------------");
+        System.out.println("----------------------------------------------------------------------");
         for (int i = 0; i <= numClientes ; i++) {
             System.out.printf("%8d|%12d|%15s|%15s|%15s|%n",(i+1),idClientes[i],clientes[i], celClientes[i],tienePelicula[i]);
             //System.out.println((i + 1) + " Id: " + idClientes[i] + ".   Nombre cliente: " + clientes[i] + "         Telefono: " + celClientes[i] + "      Tiene rentada pelicula: " + tienePelicula[i]);
@@ -383,11 +394,113 @@ public class Practica2 {
         }
     }
     
-    public void categorias(){
-        String accion; 
+    public void categorias() {
+
+        int accion = 0;
+        int aventura = 0;
+        int terror = 0;
+        int comedia = 0;
+        int depor = 0;
+        int ficc = 0;
+
+        String[] accionA = new String[30];
+        String[] aventuraA = new String[30];
+        String[] terrorA = new String[30];
+        String[] comediaA = new String[30];
+        String[] deporA = new String[30];
+        String[] ficcA = new String[30];
+
+        for (int i = 0; i <=numPelis; i++) {
+            if (categoriaPeliculas[i].equalsIgnoreCase("Accion")) {
+                
+                accionA[accion] = nomPeliculas[i];
+                accion += 1;
+
+            } else {
+                if (categoriaPeliculas[i].equalsIgnoreCase("Aventura")) {
+                   aventuraA[aventura] = nomPeliculas[i];
+                    aventura += 1;
+                    
+
+                } else {
+                    if (categoriaPeliculas[i].equalsIgnoreCase("Terror")) {
+                        terrorA[terror] = nomPeliculas[i];
+                        terror += 1;
+                        
+                    } else {
+                        if (categoriaPeliculas[i].equalsIgnoreCase("Comedia")) {
+                            comediaA[comedia] = nomPeliculas[i];
+                            comedia += 1;
+                            
+
+                        } else {
+                            if (categoriaPeliculas[i].equalsIgnoreCase("Deportes")) {
+                                deporA[depor] = nomPeliculas[i];
+                                depor += 1;
+                                
+                            } else {
+                                if (categoriaPeliculas[i].equalsIgnoreCase("Ficcion")) {
+                                    ficcA[ficc] = nomPeliculas[i];
+                                        ficc += 1;
+                                    
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        System.out.println("");
+        imprimirCategorias(accionA, accion, aventuraA, aventura, terrorA, terror, comediaA, comedia, deporA, depor, ficcA, ficc);
+        System.out.println("");
+        regresar();
+
+    }
+    public void imprimirCategorias(String[] accion, int nAcc, String[] aventura, int aven, String[]terro, int terr, String[] comedia, int comedi, String[] depor, int dep, String[] ficcion, int fic){
+        System.out.println("Cantidad de peliculas por categotia");
+        System.out.println("Accion: "+nAcc);
+        System.out.println("Aventura: "+aven);
+        System.out.println("Terror: "+terr);
+        System.out.println("Comedia: "+comedi);
+        System.out.println("Deportes:"+dep);
+        System.out.println("Ficcion: "+fic);
+        
+        //cantidad mayor cantidad pel por categoria
+        int numMayor=0;
+        int[] cantXcat= new int[30];
+        cantXcat[0]=nAcc;
+        cantXcat[1]=aven;
+        cantXcat[2]=terr;
+        cantXcat[3]=comedi;
+        cantXcat[4]=dep;
+        cantXcat[5]=fic;
+        for (int i = 0; i <=5; i++) {
+            if (cantXcat[i] > numMayor) {
+            numMayor =cantXcat[i];
+        }
+            
+        }
+        System.out.println("");
+        System.out.printf("%15s|%15s|%15s|%15s|%15s|%15s|%n","Accion","Aventura","Terror", "Comedia", "Deportes","Ficcion");
+        System.out.println("----------------------------------------------------------------------------------------------");
+        for (int i = 0; i < numMayor; i++) {
+            System.out.printf("%15s|%15s|%15s|%15s|%15s|%15s|%n",accion[i], aventura[i], terro[i], comedia[i], depor[i], ficcion[i]);   
+        }
     }
 
     public void reportes() {
+        int rep=0;
+        System.out.println("\nReportes.");
+        System.out.println("1. Informe peliculas por categoria");
+        System.out.println("2. REgresar al menu ");
+        rep=scanner.nextInt();
+        if (rep==1){
+            categorias();
+        } else{
+            Menu();
+        }
 
     }
 
