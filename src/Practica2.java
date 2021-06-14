@@ -201,7 +201,8 @@ public class Practica2 {
             contador++;
         }
         if (contador != numClientes+1) {
-            System.out.println("Numero encontrado en el espacio numero " + contador);
+            //System.out.println("Numero encontrado en el espacio numero " + contador);
+            
             if (tienePelicula[contador] == true) {
                 System.out.println("Ya tiene una Pelicula rentada, hasta que se devuelva puede alquilar otra. Lo sentimos...");
                 //disponi[buscar]=true;
@@ -211,11 +212,14 @@ public class Practica2 {
                 tienePelicula[noCliente] = true;
                 disponible[noPelicula] = false;
                 peliculasRentadas(noPelicula, noCliente, dias);
+                System.out.println("");
+                System.out.println("¡ha rentado la pelicula "+nomPeliculas[noPelicula]+" con exito!");
+                System.out.println("");
 
             }
 
         } else {
-            System.out.println("Id no encontrado, debe de registrase. O introduzca bien los datos");
+            System.out.println("\n\nId no encontrado, debe de registrase. O introduzca bien los datos\n\n");
         }
     }
 
@@ -377,6 +381,10 @@ public class Practica2 {
                 Menu();
             }
         }
+    }
+    
+    public void categorias(){
+        String accion; 
     }
 
     public void reportes() {
