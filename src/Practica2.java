@@ -105,6 +105,8 @@ public class Practica2 {
                 regresar();
                 break;
             case 5:
+                ordenarPeliculas(nomPeliculas,idPeliculas,anioPeliculas);
+                regresar();
                 break;
             case 6:
                 crearUsuario();
@@ -327,7 +329,7 @@ public class Practica2 {
         System.out.println("Estos son nuestros clientes registrados: \n");
         System.out.println("");
         System.out.printf("%8s|%12s|%15s|%15s|%15s|%n","No.","ID","Nombre", "Telefono", "Tiene Pelicula");
-        System.out.println("----------------------------------------------------------------------");
+        System.out.println("--------------------------------------------------------------------------");
         for (int i = 0; i <= numClientes ; i++) {
             System.out.printf("%8d|%12d|%15s|%15s|%15s|%n",(i+1),idClientes[i],clientes[i], celClientes[i],tienePelicula[i]);
             //System.out.println((i + 1) + " Id: " + idClientes[i] + ".   Nombre cliente: " + clientes[i] + "         Telefono: " + celClientes[i] + "      Tiene rentada pelicula: " + tienePelicula[i]);
@@ -502,6 +504,40 @@ public class Practica2 {
             Menu();
         }
 
+    }
+    public void ordenarPeliculas(String[] nomPelis, int[] idPelis, int[] anioPel){
+        for (int i = 0; i <=numPelis; i++) {
+            for (int j = 0; j <= numPelis; j++) {
+                if (nomPelis[i].compareToIgnoreCase(nomPelis[j])<0) {
+                    String aux=nomPelis[i];
+                    int numAux=idPelis[i];
+                   // int fechaAux=diasRent[i];
+                    int anioAux=anioPel[i];
+                    //boolean dispAux=disponi[i];
+                    nomPelis[i]=nomPelis[j];
+                    idPelis[i]=idPelis[j];
+                    //diasRent[i]=diasRent[j];
+                    anioPel[i]=anioPel[j];
+                    //disponi[i]=disponi[j];
+                    nomPelis[j]=aux;
+                    idPelis[j]=numAux;
+                    //diasRent[j]=fechaAux;
+                    anioPel[j]=anioAux;
+                    //disponi[j]=dispAux;
+                }
+            }
+            
+        }
+        //System.out.println(nomPelis[0]);
+        mostrarPelOrdenadas(nomPelis,idPelis,anioPel);
+    }
+    public void mostrarPelOrdenadas(String[] nomOrden, int[] idOrden, int[] anioPel){
+        System.out.println("");
+        System.out.println("Lista de peliculas en orden alfabetica: "); 
+        for (int i = 0; i <= numPelis; i++) {
+            System.out.println(nomOrden[i]+" "+idOrden[i]);
+        }
+        
     }
 
 }
