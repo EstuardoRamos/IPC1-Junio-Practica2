@@ -45,7 +45,7 @@ public class Practica2 {
         nomPeliculas[3] = "Los vengadores";
         nomPeliculas[4] = "Shrek         ";
         nomPeliculas[5] = "Rambo         ";
-        nomPeliculas[6] = "Chucky    " ;
+        nomPeliculas[6] = "Chucky         " ;
         nomPeliculas[7] = "Terminator 2  " ;
         anioPeliculas[0] = 1984;
         anioPeliculas[1] = 1986;
@@ -254,7 +254,6 @@ public class Practica2 {
                 definirId(i);
             }
         }
-        System.out.println("El Id de la pelicula es " + idClientes[i]);
 
     }
 
@@ -361,7 +360,7 @@ public class Practica2 {
             categoriaPeliculas[numPelis] = categoria;
             definirId(numPelis);
             //llenarPeliculas(numPelis);
-            System.out.println("\nSe agregar la pelicula " + nomPeliculas[numPelis] + " ha la posision " + numPelis);
+            System.out.println("\nSe agregar la pelicula " + nomPeliculas[numPelis] );
         } else {
             if (selec == 2) {
                 Menu();
@@ -388,7 +387,7 @@ public class Practica2 {
             celClientes[numClientes] = cel;
             definirIdClientes(numClientes);
             System.out.println("Nuevo usuario " + clientes[numClientes] + "id: " + idClientes[numClientes] + ". Se ha agregado a la lista.");
-            System.out.println(numClientes);
+            //System.out.println(numClientes);
         } else {
             if (selec == 2) {
                 Menu();
